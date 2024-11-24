@@ -1,0 +1,444 @@
+<html><head><base href="." /><title>Lana Dubkova | NYC Party Photography | Gallery</title><style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #000000;
+    color: #FFFFFF;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 200;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  .grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 3rem 4rem;
+    z-index: 100;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.8) 70%, transparent);
+    mix-blend-mode: difference;
+  }
+
+  nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin-right: 4rem;
+    opacity: 0;
+    animation: revealChar 0.3s forwards;
+    animation-delay: calc(var(--char-index) * 0.05s);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.85rem;
+  }
+
+  nav a:hover {
+    opacity: 0.7;
+    letter-spacing: 0.4em;
+  }
+
+  .gallery {
+    padding: 0;  /* Remove padding */
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 100%;  /* Allow full width */
+    margin: 0 auto;
+    opacity: 1;
+  }
+
+  .gallery-item {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    width: 100%;
+    padding: 0;
+  }
+
+  .gallery-item::before {
+    content: '';
+    position: absolute;
+    inset: -2rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    transform: translateZ(-100px);
+  }
+
+  .gallery-item:hover img {
+    transform: translateZ(100px) scale(1.05);
+    filter: brightness(1.1) contrast(1.05) grayscale(0) !important; /* Added !important to override any other states */
+  }
+
+  .gallery-item.past img {
+    filter: brightness(0.7) contrast(1.1) grayscale(0.4);
+    transform: scale(0.8);  /* Shrink when scrolled past */
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: brightness(0.95) contrast(1.02) grayscale(0.2);
+    transform: translateZ(0) scale(1);
+    opacity: 0;
+  }
+
+  .gallery-item.visible img {
+    opacity: 1;
+    transform: translateZ(50px) scale(1);
+  }
+
+  .meta {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.3em;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.8rem;
+    z-index: 2;
+  }
+
+  .gallery-item.visible .meta {
+    opacity: 0.5;
+    transform: translateY(-50%) translateX(-1rem);
+  }
+
+  .story-text {
+    position: absolute;
+    right: 3%;
+    bottom: 5%;
+    text-align: right;
+    letter-spacing: 0.15em;
+    line-height: 1.6;
+    max-width: 300px;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.75rem;
+    z-index: 2;
+    font-style: italic;
+    text-decoration: underline;
+  }
+
+  .gallery-item.visible .story-text {
+    opacity: 0.8;
+    transform: translateX(0);
+  }
+
+  .gallery-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+    pointer-events: none;
+    opacity: 0; /* Changed from 1 to 0 */
+    transition: opacity 0.4s ease;
+  }
+
+  @keyframes revealChar {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 1400px) {
+    .gallery { padding: 0; }
+    .story-text { 
+      right: 3%; 
+      max-width: 250px;
+      font-size: 0.7rem;
+      bottom: 3%;
+    }
+    .meta { left: 2%; }
+  }
+</style></head><body>
+  <div class="grain"></div>
+
+  <nav>
+    <a href="placeholder" style="--char-index: 0">HOME</a>
+    <a href="placeholder" style="--char-index: 1">GALLERY</a>
+    <a href="placeholder" style="--char-index: 2">ABOUT</a>
+    <a href="placeholder" style="--char-index: 3">CONTACT</a>
+  </nav>
+  <div class="gallery">
+    <div class="gallery-item">
+      <div class="meta">THRESHOLD / MMXXIII</div>
+      <img src="website%20stroke%202.jpg" alt="Intimate party scene - man at table in maroon shirt, film-like quality" loading="lazy">
+      <div class="story-text">Documentary-style capture of those liminal moments between formality and candor...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">VERITY / MMXXIII</div>
+      <img src="6.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Fly-on-the-wall observations of New York's elevated social landscape...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">DIALECTIC / MMXXIII</div>
+      <img src="event%20daniel.jpeg" alt="Black and white formal event - chef and guest interaction, elegant atmosphere" loading="lazy">
+      <div class="story-text">Classic documentary approach to capturing the sophisticated interplay of host and guest...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">EXPRESSION / MMXXIII</div>
+      <img src="8.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Unguarded moments preserved through an observational lens...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">SYNTHESIS / MMXXIII</div>
+      <img src="_G8A1776.png" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Candid, classic...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">RECURSION / MMXXIII</div>
+      <img src="10.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Intimate gatherings preserved with journalistic detachment...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">ELEGANCE / MMXXIII</div>
+      <img src="Rachels40th-56.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Event coverage that maintains the authenticity of genuine interaction...</div>
+    </div>
+  
+    <div class="gallery-item">
+      <div class="meta">CHRONICLE / MMXXIII</div>
+      <img src="_G8A2139.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Unobtrusive documentation captured with editorial restraint...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">ADVENTURE / MMXXIII</div>
+      <img src="_G8A0444.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Spontaneous energy captured through a documentary lens...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">VITALITY / MMXXIII</div>
+      <img src="Rachels40th-42.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The essence of New York's vibrant social gatherings...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">ELOQUENCE / MMXXIII</div>
+      <img src="16.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Natural, unposed moments in refined settings...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">NARRATIVE / MMXXIII</div>
+      <img src="15.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Society's intimate celebrations through an editorial eye...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">TRANSITION / MMXXIII</div>
+      <img src="14.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The subtle dance of light and movement in social spaces...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">MOMENTUM / MMXXIII</div>
+      <img src="13.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Life's ephemeral moments frozen in time...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">PRESENCE / MMXXIII</div>
+      <img src="12.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Silent witness to New York's most exclusive gatherings...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">FUSION / MMXXIII</div>
+      <img src="fave13.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Classical technique meets modern sensibility...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">INCEPTION / MMXXIII</div>
+      <img src="NilamMichaelWedding-49.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The poetry of authentic social connection...</div>
+    </div>
+  
+    <div class="gallery-item">
+      <div class="meta">KAIROS / MMXXIII</div>
+      <img src="Rachels40th-9.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Decisive moments in social choreography...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">ENCOUNTER / MMXXIII</div>
+      <img src="Selection Day-22.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The raw energy of street photography in refined settings...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">HARMONY / MMXXIII</div>
+      <img src="Selection Day-1-3.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The natural rhythm of human connection...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">RHYTHM / MMXXIII</div>
+      <img src="Rachels40th-99.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Spontaneity meets classical composition...</div>
+    </div>
+  
+    <div class="gallery-item">
+      <div class="meta">EPHEMERAL / MMXXIII</div>
+      <img src="Rachels40th-75.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Fleeting moments in New York's social tapestry...</div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="meta">SYNERGY / MMXXIII</div>
+      <img src="Rachels40th-8.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Where tradition meets contemporary vision...</div>
+    </div>
+   
+    <div class="gallery-item">
+      <div class="meta">WISDOM / MMXXIII</div>
+      <img src="_G8A0498.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The subtle language of social discourse...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">MYSTIQUE / MMXXIII</div>
+      <img src="_G8A2499.png" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Unveiling the hidden narratives of elite gatherings...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">TIMELESS / MMXXIII</div>
+      <img src="11.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Where past and present converge in social ritual...</div>
+    </div>
+    
+    <div class="gallery-item">
+      <div class="meta">CULTURE / MMXXIII</div>
+      <img src="5.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The living heritage of New York society...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">ESSENCE / MMXXIII</div>
+      <img src="7.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Pure moments of human connection...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">CHOREOGRAPHY / MMXXIII</div>
+      <img src="2.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The dance of social interaction unfolds...</div>
+    </div>
+  
+    <div class="gallery-item">
+      <div class="meta">CINEMATIC / MMXXIII</div>
+      <img src="Rachels40th-14.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Life's moments framed like film stills...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">GRACE / MMXXIII</div>
+      <img src="9.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Elegance captured in natural moments...</div>
+    </div>
+  
+    <div class="gallery-item">
+      <div class="meta">ECHO / MMXXIII</div>
+      <img src="Rachels40th-89.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The quiet poetry of social interaction...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">FLEETING / MMXXIII</div>
+      <img src="3.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Time suspended in social space...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">TRUTH / MMXXIII</div>
+      <img src="1.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">Reality through an unfiltered lens...</div>
+    </div>
+    <div class="gallery-item">
+      <div class="meta">BALANCE / MMXXIII</div>
+      <img src="4.jpg" alt="Luxury event photography" loading="lazy">
+      <div class="story-text">The equilibrium of formal and casual...</div>
+    </div>
+
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const textElements = document.querySelectorAll('nav a');
+    textElements.forEach(element => {
+      const text = element.textContent;
+      element.textContent = '';
+      [...text].forEach((char, index) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.setProperty('--char-index', index);
+        element.appendChild(span);
+      });
+    });
+  
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          entry.target.classList.remove('past');
+        } else {
+          entry.target.classList.remove('visible');
+          // Add past class if element is above viewport
+          if (entry.boundingClientRect.top < 0) {
+            entry.target.classList.add('past');
+          }
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: '-5% 0px -5% 0px'
+    });
+  
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      observer.observe(item);
+    });
+  
+    let lastScrollTime = 0;
+    const scrollThreshold = 50;
+  
+    document.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      if (now - lastScrollTime > scrollThreshold) {
+        e.preventDefault();
+        window.scrollBy({
+          top: e.deltaY * 1.2,
+          behavior: 'auto'
+        });
+        lastScrollTime = now;
+      }
+    }, { passive: false });
+  
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        document.body.style.opacity = 0;
+        document.body.style.transform = 'translateY(20px)';
+        document.body.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        setTimeout(() => {
+          window.location = href;
+        }, 300);
+      });
+    });
+  });
+  </script>
+  </body></html>

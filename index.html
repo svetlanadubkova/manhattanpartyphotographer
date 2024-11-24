@@ -1,0 +1,965 @@
+<html><head><base href="/" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANA DUBKOVA ✧ Manhattan Party Photographer</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.12.16/dist/framer-motion.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes floatIn {
+            0% { 
+                opacity: 0;
+                transform: translateY(100%) rotate(10deg);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        html {
+            cursor: none !important;
+        }
+
+        body {
+            background: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        .vintage-texture {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .luxury-gradient {
+            background: linear-gradient(
+                45deg,
+                rgba(255,255,255,0.05) 0%,
+                rgba(255,255,255,0) 50%,
+                rgba(255,255,255,0.05) 100%
+            );
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion, AnimatePresence } = window.Motion;
+        const { useState, useEffect, useRef } = React;
+
+        const FloatingIllustration = React.memo(() => (
+            <svg className="absolute w-full h-full" viewBox="0 0 400 400">
+                <defs>
+                    <filter id="displacement">
+                        <feTurbulence type="turbulence" baseFrequency="0.01 0.01" numOctaves="2" seed="2">
+                            <animate 
+                                attributeName="baseFrequency" 
+                                dur="30s" 
+                                values="0.01 0.01;0.02 0.02;0.01 0.01" 
+                                repeatCount="indefinite" 
+                            />
+                        </feTurbulence>
+                        <feDisplacementMap in="SourceGraphic" scale="5" />
+                    </filter>
+                    <radialGradient id="lensGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style={{ stopColor: 'white', stopOpacity: 0.2 }} />
+                        <stop offset="80%" style={{ stopColor: 'white', stopOpacity: 0.1 }} />
+                        <stop offset="100%" style={{ stopColor: 'white', stopOpacity: 0 }} />
+                    </radialGradient>
+                </defs>
+                
+                <rect 
+                    x="120" 
+                    y="150" 
+                    width="160" 
+                    height="100" 
+                    rx="10"
+                    fill="none" 
+                    stroke="url(#lensGradient)"
+                    strokeWidth="0.5"
+                    filter="url(#displacement)"
+                />
+                
+                <circle 
+                    cx="200" 
+                    cy="200" 
+                    r="50" 
+                    fill="none" 
+                    stroke="url(#lensGradient)"
+                    strokeWidth="0.5"
+                    filter="url(#displacement)"
+                >
+                    <animate
+                        attributeName="r"
+                        values="50;55;50"
+                        dur="4s"
+                        repeatCount="indefinite"
+                    />
+                </circle>
+                
+                {[...Array(8)].map((_, i) => (
+                    <path
+                        key={i}
+                        d={`M 200 200 L ${200 + Math.cos(i * Math.PI/4) * 40} ${200 + Math.sin(i * Math.PI/4) * 40}`}
+                        stroke="url(#lensGradient)"
+                        strokeWidth="0.25"
+                        filter="url(#displacement)"
+                    >
+                        <animate
+                            attributeName="strokeWidth"
+                            values="0.25;0.5;0.25"
+                            dur={`${3 + i * 0.5}s`}
+                            repeatCount="indefinite"
+                        />
+                    </path>
+                ))}
+                
+                {[...Array(12)].map((_, i) => (
+                    <circle
+                        key={i}
+                        cx={200 + Math.cos(i * Math.PI/6) * 60}
+                        cy={200 + Math.sin(i * Math.PI/6) * 60}
+                        r="1"
+                        fill="white"
+                        opacity="0.3"
+                    >
+                        <animate
+                            attributeName="opacity"
+                            values="0.3;0.8;0.3"
+                            dur={`${2 + i * 0.2}s`}
+                            repeatCount="indefinite"
+                        />
+                        <animate
+                            attributeName="r"
+                            values="1;2;1"
+                            dur={`${3 + i * 0.2}s`}
+                            repeatCount="indefinite"
+                        />
+                    </circle>
+                ))}
+            </svg>
+        ));
+
+        const VintageOverlay = () => (
+            <div className="absolute inset-0 mix-blend-overlay pointer-events-none opacity-20">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
+                <div className="absolute inset-0">
+                    <video 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline
+                        className="absolute inset-0 object-cover w-full h-full opacity-40 mix-blend-soft-light"
+                        style={{ willChange: 'transform', transform: 'translateZ(0)' }}
+                    >
+                        <source src="https://i.imgur.com/a71D5zl.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <div className="absolute inset-0" style={{ filter: 'url(#grain)', opacity: 0.05 }} />
+            </div>
+        );
+
+        const SplitCharacters = React.memo(({ children, delay = 0 }) => {
+            const characters = children.split('');
+            return (
+                <span className="inline-block">
+                    {characters.map((char, i) => (
+                        <span
+                            key={i}
+                            className="inline-block overflow-hidden"
+                            style={{ 
+                                animationDelay: `${delay + i * 0.03}s`,
+                                willChange: 'transform, opacity' 
+                            }}
+                        >
+                            <span 
+                                className="inline-block"
+                                style={{
+                                    animation: 'floatIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+                                    opacity: 0,
+                                    transform: 'translateY(100%) rotate(10deg)',
+                                }}
+                            >
+                                {char === ' ' ? '\u00A0' : char}
+                            </span>
+                        </span>
+                    ))}
+                </span>
+            );
+        });
+
+        const PortfolioPage = () => {
+            const [cursorStyle, setCursorStyle] = useState('default');
+            const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+            const cursorRef = useRef(null);
+
+            useEffect(() => {
+                let timeoutId;
+                const handleMouseMove = (e) => {
+                    if (timeoutId) return; // Throttle updates
+                    timeoutId = setTimeout(() => {
+                        setCursorPos({ x: e.clientX, y: e.clientY });
+                        timeoutId = null;
+                    }, 16); // ~60fps
+                };
+                window.addEventListener('mousemove', handleMouseMove);
+                return () => {
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    clearTimeout(timeoutId);
+                };
+            }, []);
+
+            const images = [
+                { 
+                    url: "/_G8A1776.png",
+                    caption: "Bar whisper - A young woman in black cap whispering at a bar",
+                    description: "A black and white photograph depicting a young woman with blonde hair, wearing a black baseball cap, and a white tank top at a bar"
+                },
+                { 
+                    url: "/fave13.jpg",
+                    caption: "Cowboy at party",
+                    description: "A black and white photo of a young man with a beard and a straw cowboy hat smiling at the camera, holding a glass"
+                },
+                { 
+                    url: "/_G8A3748.jpg",
+                    caption: "Chefs dinner conversation",
+                    description: "A black and white photograph depicting two men in conversation at a high-end restaurant"
+                },
+                { 
+                    url: "/_G8A2403.png",
+                    caption: "Women at restaurant",
+                    description: "Two young women sit in a booth at a restaurant, wearing red sleeveless tops"
+                },
+                { 
+                    url: "/a45e7145.jpg",
+                    caption: "Couple at party",
+                    description: "A medium indoor shot depicts two people standing in front of a kitchen counter at a social gathering"
+                }
+            ];
+
+            return (
+                <div className="relative min-h-screen bg-black text-white overflow-hidden font-light">
+                    <div className="absolute inset-0 luxury-gradient pointer-events-none" />
+                    
+                    <motion.div 
+                        ref={cursorRef}
+                        className="fixed w-8 h-8 pointer-events-none z-50 mix-blend-difference"
+                        animate={{
+                            scale: cursorStyle === 'hover' ? 2 : 1,
+                            x: cursorPos.x - 16,
+                            y: cursorPos.y - 16,
+                        }}
+                        transition={{ type: "tween", duration: 0.2 }}
+                    >
+                        <div className="w-full h-full rounded-full bg-white" />
+                    </motion.div>
+
+                    <nav className="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-40 bg-black/50 backdrop-blur-sm">
+                        <motion.button 
+                            className="text-2xl"
+                            onClick={() => {
+                                setMenuOpen(!menuOpen);
+                                setCursorStyle('default');
+                            }}
+                            whileHover={{ x: 10 }}
+                            onHoverStart={() => setCursorStyle('hover')}
+                            onHoverEnd={() => setCursorStyle('default')}
+                        >
+                            <SplitCharacters>MENU</SplitCharacters>
+                        </motion.button>
+                        <motion.a 
+                            href="/"
+                            className="text-2xl"
+                            whileHover={{ y: -5 }}
+                        >
+                            <SplitCharacters>PORTFOLIO</SplitCharacters>
+                        </motion.a>
+                    </nav>
+
+                    <main className="pt-32 px-8 pb-16 portfolio-grid">
+                        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+                            <div className="absolute inset-0">
+                                <div className="absolute inset-0 bg-black/50" />
+                                <img 
+                                    src="https://i.imgur.com/IcmLYOG.gif"
+                                    alt="Portfolio showcase gif of party photography"
+                                    className="object-cover w-full h-full"
+                                    style={{ 
+                                        willChange: 'transform',
+                                        transform: 'translateZ(0)' 
+                                    }}
+                                />
+                                <VintageOverlay />
+                            </div>
+
+                            <div className="relative z-10 text-center">
+                                <motion.button
+                                    className="text-xl border border-white/50 px-16 py-6 
+                                               hover:bg-white hover:text-black transition-all duration-500 
+                                               tracking-[0.3em] uppercase font-light backdrop-blur-sm
+                                               hover:tracking-[0.4em] hover:border-white"
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    onHoverStart={() => setCursorStyle('hover')}
+                                    onHoverEnd={() => setCursorStyle('default')}
+                                    onClick={() => window.location.href = '/portfolio'}
+                                >
+                                    VIEW GALLERY
+                                </motion.button>
+                            </div>
+                        </section>
+
+                        {images.map((image, index) => (
+                            <motion.div
+                                key={index}
+                                className="portfolio-item"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                whileHover={{ scale: 1.05 }}
+                                onHoverStart={() => setCursorStyle('hover')}
+                                onHoverEnd={() => setCursorStyle('default')}
+                            >
+                                <img 
+                                    src={image.url}
+                                    alt={image.caption}
+                                    className="object-cover"
+                                    onClick={() => window.open(image.url, "_blank")}
+                                />
+                                <div className="portfolio-caption">
+                                    <h3 className="text-lg font-light tracking-wider">{image.caption}</h3>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </main>
+
+                    <div className="fixed inset-0 pointer-events-none mix-blend-overlay opacity-20">
+                        <div className="absolute inset-0 vintage-texture" />
+                    </div>
+                </div>
+            );
+        };
+
+        const FAQSection = ({ id }) => {
+            const faqs = [
+                {
+                    question: "What's your photography style?",
+                    answer: "After spending years in the serenity of the darkroom, I lean towards a class film-noir look, documentary-style. My approach is candid and editorial, creating elevated photographs that feel both timeless and artful."
+                },
+                {
+                    question: "What areas do you cover?",
+                    answer: "I primarily shoot in Manhattan and Brooklyn, but I'm available for events throughout NYC and the tri-state area."
+                },
+                {
+                    question: "What types of events do you photograph?",
+                    answer: "Any and all. I specialize in high-end parties, corporate events, intimate gatherings, nightlife, and soirées of all sorts"
+                },
+                {
+                    question: "How far in advance should I book?",
+                    answer: "For the best availability, I recommend booking 2-3 months in advance, especially for peak season events."
+                },
+                {
+                    question: "Do you provide same-day edits?",
+                    answer: "Yes, I offer morning after social media previews for immediate posting, followed by a complete gallery delivered within 1-3 weeks based on your selected package and coverage hours."
+                },
+                {
+                    question: "What's your pricing structure?",
+                    answer: "Each event is unique, and pricing is customized based on duration, location, and deliverables."
+                }
+            ];
+
+            return (
+                <section id={id} className="relative py-32">
+                    <div className="absolute inset-0">
+                        <div className="absolute inset-0 bg-black/80" />
+                        <video 
+                            autoPlay 
+                            loop 
+                            muted 
+                            playsInline
+                            className="object-cover w-full h-full opacity-30"
+                        >
+                            <source src="https://i.imgur.com/a71D5zl.mp4" type="video/mp4" />
+                        </video>
+                        <VintageOverlay />
+                    </div>
+                    <div className="relative z-10 w-full px-8 max-w-6xl mx-auto">
+                        <h2 className="text-4xl mb-16">
+                            <SplitCharacters>FREQUENTLY ASKED</SplitCharacters>
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
+                            {faqs.map((faq, index) => (
+                                <motion.div 
+                                    key={index}
+                                    className="border-b border-white/20 pb-8"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                >
+                                    <h3 className="text-2xl mb-4 font-light">{faq.question}</h3>
+                                    <p className="text-white/70">{faq.answer}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                        <div className="relative z-10 mt-16 flex flex-col items-center text-center">
+                            <h3 className="text-3xl mb-8 font-light">
+                                Happy to answer any more questions.
+                            </h3>
+                            <motion.button
+                                className="text-xl border border-white/50 px-16 py-6 
+                                           hover:bg-white hover:text-black transition-all duration-500 
+                                           tracking-[0.3em] uppercase font-light backdrop-blur-sm
+                                           hover:tracking-[0.4em] hover:border-white"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                onHoverStart={() => setCursorStyle('hover')}
+                                onHoverEnd={() => setCursorStyle('default')}
+                                onClick={() => window.location.href = 'mailto:lana@manhattaneventphotography.com'}
+                            >
+                                SHOOT ME A MESSAGE
+                            </motion.button>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const OpulentPhotography = () => {
+            const [isLoading, setIsLoading] = useState(true);
+            const [menuOpen, setMenuOpen] = useState(false);
+            const [cursorStyle, setCursorStyle] = useState('default');
+            const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+            const cursorRef = useRef(null);
+            const [activeSection, setActiveSection] = useState('home');
+
+            useEffect(() => {
+                const timer = setTimeout(() => setIsLoading(false), 1500);
+                return () => clearTimeout(timer);
+            }, []);
+
+            useEffect(() => {
+                let timeoutId;
+                const handleMouseMove = (e) => {
+                    if (timeoutId) return; // Throttle updates
+                    timeoutId = setTimeout(() => {
+                        setCursorPos({ x: e.clientX, y: e.clientY });
+                        timeoutId = null;
+                    }, 16); // ~60fps
+                };
+                window.addEventListener('mousemove', handleMouseMove);
+                return () => {
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    clearTimeout(timeoutId);
+                };
+            }, []);
+
+            useEffect(() => {
+                const handlePopState = () => {
+                    setActiveSection(window.location.pathname === '/portfolio' ? 'portfolio' : 'home');
+                };
+                window.addEventListener('popstate', handlePopState);
+                return () => window.removeEventListener('popstate', handlePopState);
+            }, []);
+            
+            return (
+                <div className="relative min-h-screen bg-black text-white overflow-hidden font-light">
+                    <div className="absolute inset-0 luxury-gradient pointer-events-none" />
+                    <motion.div 
+                        ref={cursorRef}
+                        className="fixed w-8 h-8 pointer-events-none z-50 mix-blend-difference"
+                        animate={{
+                            scale: cursorStyle === 'hover' ? 2 : 1,
+                            x: cursorPos.x - 16,
+                            y: cursorPos.y - 16,
+                        }}
+                        transition={{ type: "tween", duration: 0.2 }}
+                    >
+                        <div className="w-full h-full rounded-full bg-white" />
+                    </motion.div>
+
+                    <AnimatePresence>
+                        {isLoading && (
+                            <motion.div 
+                                className="fixed inset-0 z-50 bg-black"
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
+                            >
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="text-6xl tracking-widest font-extralight">
+                                        <SplitCharacters>WELCOME. COME ON IN.</SplitCharacters>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <nav className="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-40">
+                        <motion.button 
+                            className="text-2xl"
+                            onClick={() => {
+                                setMenuOpen(!menuOpen);
+                                setCursorStyle('default');
+                            }}
+                            whileHover={{ x: 10 }}
+                            onHoverStart={() => setCursorStyle('hover')}
+                            onHoverEnd={() => setCursorStyle('default')}
+                        >
+                            <SplitCharacters>MENU</SplitCharacters>
+                        </motion.button>
+                        <motion.a 
+                            href="/"
+                            className="text-2xl"
+                            whileHover={{ y: -5 }}
+                        >
+                            <SplitCharacters>NYC PARTY PHOTOGRAPHER</SplitCharacters>
+                        </motion.a>
+                    </nav>
+
+                    <AnimatePresence>
+                        {menuOpen && (
+                            <motion.div 
+                                className="fixed inset-0 z-30 bg-black"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div className="relative h-full">
+                                    <FloatingIllustration />
+                                    <button
+                                        className="absolute top-8 right-8 text-2xl"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        CLOSE
+                                    </button>
+                                    <div className="relative h-full flex flex-col justify-center items-center p-8">
+                                        {[
+                                            { text: 'PORTFOLIO', path: '/portfolio' },
+                                            { text: 'ABOUT', path: '#about' },
+                                            { text: 'FAQ', path: '#faq-section' },
+                                            { text: 'CONTACT', path: '#contact' }
+                                        ].map((item, i) => (
+                                            <motion.button
+                                                key={item.text}
+                                                className="text-6xl md:text-8xl mb-8 relative group tracking-wider"
+                                                initial={{ x: -50, opacity: 0 }}
+                                                animate={{ x: 0, opacity: 1 }}
+                                                transition={{ delay: i * 0.1 }}
+                                                onClick={() => {
+                                                    if (item.path.startsWith('#')) {
+                                                        const element = document.querySelector(item.path);
+                                                        if (element) {
+                                                            element.scrollIntoView({ behavior: 'smooth' });
+                                                        }
+                                                    } else {
+                                                        window.location.href = item.path;
+                                                    }
+                                                    setMenuOpen(false);
+                                                }}
+                                                onHoverStart={() => setCursorStyle('hover')}
+                                                onHoverEnd={() => setCursorStyle('default')}
+                                            >
+                                                <SplitCharacters delay={i * 0.1}>{item.text}</SplitCharacters>
+                                                <span className="absolute left-0 right-0 bottom-0 h-px bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out" />
+                                                <span className="absolute inset-0 bg-white/5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out -skew-x-12" />
+                                            </motion.button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <main className="relative">
+                        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+                            <div className="absolute inset-0">
+                                <video 
+                                    autoPlay 
+                                    loop 
+                                    muted 
+                                    playsInline
+                                    className="object-cover w-full h-full opacity-30"
+                                    style={{ 
+                                        willChange: 'transform',
+                                        transform: 'translateZ(0)' 
+                                    }}
+                                >
+                                    <source src="https://i.imgur.com/tnrAphh.mp4" type="video/mp4" />
+                                </video>
+                                
+                                <video 
+                                    autoPlay 
+                                    loop 
+                                    muted 
+                                    playsInline
+                                    className="absolute inset-0 object-cover w-full h-full mix-blend-overlay opacity-30"
+                                >
+                                    <source src="https://i.imgur.com/a71D5zl.mp4" type="video/mp4" />
+                                </video>
+                                <VintageOverlay />
+                            </div>
+
+                            <div className="relative z-10 text-center">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.5, duration: 1.5 }}
+                                    className="mb-8 px-4"
+                                >
+                                    <h1 className="relative font-extralight">
+                                        <div className="text-left transform-gpu" style={{ marginLeft: '-5vw' }}>
+                                            <motion.div
+                                                className="text-[12rem] md:text-[20rem] leading-none tracking-tighter"
+                                                whileHover={{ x: 40 }}
+                                                transition={{ type: "spring", stiffness: 100, damping: 10 }}
+                                            >
+                                                <span className="relative inline-block">
+                                                    <span className="absolute -top-4 left-0 text-xs tracking-[2em] uppercase opacity-50">
+                                                        Manhattan
+                                                    </span>
+                                                    <SplitCharacters>LANA</SplitCharacters>
+                                                </span>
+                                            </motion.div>
+                                        </div>
+                                        
+                                        <div className="text-right transform-gpu" style={{ marginRight: '-5vw', marginTop: '-2rem' }}>
+                                            <motion.div
+                                                className="text-[12rem] md:text-[20rem] leading-none tracking-tighter"
+                                                whileHover={{ x: -40 }}
+                                                transition={{ type: "spring", stiffness: 100, damping: 10 }}
+                                            >
+                                                <span className="relative inline-block">
+                                                    <SplitCharacters>DUBKOVA</SplitCharacters>
+                                                    <span className="absolute -bottom-4 right-0 text-xs tracking-[2em] uppercase opacity-50">
+                                                        Photographer
+                                                    </span>
+                                                </span>
+                                            </motion.div>
+                                        </div>
+                                    </h1>
+
+                                    <motion.div 
+                                        className="mt-32 relative"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 1 }}
+                                    >
+                                        <div className="absolute left-0 right-0 top-1/2 h-[1px] bg-white/20" />
+                                        <div className="relative flex flex-col items-center justify-center gap-4">
+                                            <div className="flex items-center justify-center gap-8 mb-6">
+                                                <div className="h-[1px] w-16 bg-white/50 transform -rotate-45" />
+                                                <div className="text-xl font-light tracking-[0.5em] uppercase">
+                                                    <SplitCharacters>ELEVATED EVENT PHOTOGRAPHY IN NYC</SplitCharacters>
+                                                </div>
+                                                <div className="h-[1px] w-16 bg-white/50 transform rotate-45" />
+                                            </div>
+                                            <motion.div 
+                                                className="text-sm tracking-[0.3em] uppercase opacity-70"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ delay: 1.4 }}
+                                            >
+                                                <div className="flex items-center justify-center gap-6">
+                                                    <span>PARTIES.</span>
+                                                   
+                                                    <span>CORPORATE EVENTS.</span>
+                                                   
+                                                    <span>NIGHT-LIFE.</span>
+                                                </div>
+                                            </motion.div>
+                                            <motion.div 
+                                                className="text-sm tracking-[0.2em] uppercase opacity-50 mt-4"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ delay: 1.6 }}
+                                            >
+                                                PHOTOGRAPHY IN MANHATTAN, BROOKLYN, AND BEYOND
+                                            </motion.div>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            </div>
+
+                            <FloatingIllustration />
+                        </section>
+
+                        <section id="about" className="relative h-screen flex items-center justify-center overflow-hidden">
+                            <div className="absolute inset-0">
+                                <div className="absolute inset-0 bg-black/50" />
+                                <img 
+                                    src="https://i.imgur.com/IcmLYOG.gif"
+                                    alt="Portfolio showcase gif of party photography"
+                                    className="object-cover w-full h-full"
+                                    style={{ 
+                                        willChange: 'transform',
+                                        transform: 'translateZ(0)' 
+                                    }}
+                                />
+                                <VintageOverlay />
+                            </div>
+
+                            <div className="relative z-10 text-center">
+                                <motion.button
+                                    className="text-xl border border-white/50 px-16 py-6 
+                                               hover:bg-white hover:text-black transition-all duration-500 
+                                               tracking-[0.3em] uppercase font-light backdrop-blur-sm
+                                               hover:tracking-[0.4em] hover:border-white"
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    onHoverStart={() => setCursorStyle('hover')}
+                                    onHoverEnd={() => setCursorStyle('default')}
+                                    onClick={() => window.location.href = '/portfolio'}
+                                >
+                                    VIEW GALLERY
+                                </motion.button>
+                            </div>
+                        </section>
+
+                        <section id="faq-section" className="relative py-32">
+                            <div className="absolute inset-0">
+                                <div className="absolute inset-0 bg-black opacity-90" />
+                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
+                                <div className="absolute inset-0 luxury-gradient" />
+                            </div>
+                            <div className="relative z-10 w-full px-4">
+                                <div className="max-w-7xl mx-auto relative">
+                                    <motion.div 
+                                        className="relative"
+                                        initial={{ opacity: 0, y: 50 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.5 }}
+                                    >
+                                        <motion.div
+                                            className="float-right ml-12 mb-8 w-[45%]"
+                                            initial={{ scale: 0.95 }}
+                                            whileInView={{ scale: 1 }}
+                                            transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
+                                        >
+                                            <div className="relative">
+                                                <img 
+                                                    src="/testingbrooklynevents.png"
+                                                    alt="A polaroid-style photograph of a young girl, named Lana, in a white dress, sitting in what appears to be a field at night"
+                                                    className="w-full object-cover rounded-lg shadow-2xl"
+                                                    style={{
+                                                        filter: 'brightness(0.9) contrast(1.1)'
+                                                    }}
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
+                                                <motion.div 
+                                                    className="absolute inset-0 bg-black/30 mix-blend-overlay rounded-lg"
+                                                    animate={{ opacity: [0.2, 0.4, 0.2] }}
+                                                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                                />
+                                            </div>
+                                            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-xl" />
+                                        </motion.div>
+
+                                        <motion.div 
+                                            className="text-2xl leading-relaxed space-y-8"
+                                            initial={{ opacity: 0 }}
+                                            whileInView={{ opacity: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
+                                            style={{ fontFamily: "'Playfair Display', serif" }}
+                                        >
+                                            <motion.p 
+                                                className="ml-0 mb-12 text-4xl font-light"
+                                                whileInView={{ x: 0, opacity: 1 }}
+                                                initial={{ x: -50, opacity: 0 }}
+                                                transition={{ delay: 0.2 }}
+                                            >
+                                                hi, i'm <span className="italic">lana</span>.
+                                            </motion.p>
+                                            
+                                            <motion.p 
+                                                className="mr-[20%] italic font-light leading-relaxed mb-12"
+                                                whileInView={{ x: 0, opacity: 1 }}
+                                                initial={{ x: -50, opacity: 0 }}
+                                                transition={{ delay: 0.4 }}
+                                            >
+                                                i'm obsessed with capturing those perfect in-between moments. i'm not big on posed shots or forced smiles.
+                                            </motion.p>
+                                            
+                                            <motion.p 
+                                                className="ml-[10%] mb-12 relative"
+                                                whileInView={{ x: 0, opacity: 1 }}
+                                                initial={{ x: -50, opacity: 0 }}
+                                                transition={{ delay: 0.6 }}
+                                            >
+                                                give me the genuine laugh between old friends at the bar, that second when someone completely loses themselves to the music, the quiet moment in the corner of a packed club.
+                                            </motion.p>
+
+                                            <motion.p 
+                                                className="mr-[15%] italic font-light leading-relaxed mb-12"
+                                                whileInView={{ x: 0, opacity: 1 }}
+                                                initial={{ x: -50, opacity: 0 }}
+                                                transition={{ delay: 0.8 }}
+                                            >
+                                                those are the shots that tell the real story of a night. no fuss, no awkward posing, just authentic captures of people being themselves.
+                                            </motion.p>
+
+                                            <motion.p 
+                                                className="ml-[5%] relative mb-12"
+                                                whileInView={{ x: 0, opacity: 1 }}
+                                                initial={{ x: -50, opacity: 0 }}
+                                                transition={{ delay: 1.0 }}
+                                            >
+                                                it's strange and beautiful how a camera can make you both invisible and intensely present at the same time, letting you witness these incredibly intimate moments that would otherwise slip away unnoticed.
+                                            </motion.p>
+
+                                            <motion.p 
+                                                className="ml-[25%] italic font-light leading-loose mb-12"
+                                                whileInView={{ x: 0, opacity: 1 }}
+                                                initial={{ x: -50, opacity: 0 }}
+                                                transition={{ delay: 1.2 }}
+                                            >
+                                                there's something almost sacred about it - being trusted to document these fragments of people's lives, these fleeting moments of pure authenticity.
+                                            </motion.p>
+
+                                            <motion.p 
+                                                className="mr-0 mt-12 text-2xl tracking-wide"
+                                                whileInView={{ x: 0, opacity: 1 }}
+                                                initial={{ x: -50, opacity: 0 }}
+                                                transition={{ delay: 1.4 }}
+                                            >
+                                                sometimes i catch myself holding my breath, waiting for that perfect split second when everything aligns and someone's true self shines through.
+                                            </motion.p>
+                                        </motion.div>
+                                    </motion.div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="contact" className="relative py-32 bg-black">
+                            <div className="max-w-4xl mx-auto px-8 text-center">
+                                <motion.div 
+                                    className="text-xl mb-8"
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                >
+                                    CALL ME, BEEP ME: 
+                                    <a 
+                                        href="mailto:lana@manhattaneventphotography.com" 
+                                        className="block mt-4 hover:opacity-70 transition-opacity"
+                                        onHoverStart={() => setCursorStyle('hover')}
+                                        onHoverEnd={() => setCursorStyle('default')}
+                                    >
+                                        💌 lana@manhattaneventphotography.com
+                                    </a>
+                                </motion.div>
+                                
+                                <motion.button
+                                    className="text-xl border border-white/50 px-16 py-6 
+                                               hover:bg-white hover:text-black transition-all duration-500 
+                                               tracking-[0.3em] uppercase font-light backdrop-blur-sm
+                                               hover:tracking-[0.4em] hover:border-white"
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    onHoverStart={() => setCursorStyle('hover')}
+                                    onHoverEnd={() => setCursorStyle('default')}
+                                    onClick={() => window.location.href = 'mailto:lana@manhattaneventphotography.com'}
+                                >
+                                    SUBMIT INQUIRY
+                                </motion.button>
+                            </div>
+                        </section>
+
+                        <FAQSection id="faq-section" />
+                    </main>
+                </div>
+            );
+        };
+
+        const pages = {
+            home: OpulentPhotography,
+            portfolio: PortfolioPage
+        };
+
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState(
+                window.location.pathname === '/portfolio' ? 'portfolio' : 'home'
+            );
+
+            useEffect(() => {
+                const handlePathChange = () => {
+                    setCurrentPage(window.location.pathname === '/portfolio' ? 'portfolio' : 'home');
+                };
+
+                window.addEventListener('popstate', handlePathChange);
+                
+                const pushStateEvent = new Event('pushstate');
+                const originalPushState = window.history.pushState;
+                window.history.pushState = function() {
+                    originalPushState.apply(this, arguments);
+                    window.dispatchEvent(pushStateEvent);
+                };
+                window.addEventListener('pushstate', handlePathChange);
+
+                return () => {
+                    window.removeEventListener('popstate', handlePathChange);
+                    window.removeEventListener('pushstate', handlePathChange);
+                    window.history.pushState = originalPushState;
+                };
+            }, []);
+
+            const PageComponent = pages[currentPage];
+            return (
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentPage}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                    >
+                        <PageComponent />
+                    </motion.div>
+                </AnimatePresence>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body></html>
