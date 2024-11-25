@@ -52,12 +52,15 @@
 
         html {
             cursor: none !important;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         body {
             background: black;
             margin: 0;
             padding: 0;
+            min-height: -webkit-fill-available;
         }
 
         .vintage-texture {
@@ -76,10 +79,12 @@
         @media (max-width: 768px) {
             .title-section {
                 height: 100vh;
-                padding: 0.5rem;
+                height: -webkit-fill-available;
+                padding: 1rem;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                overflow: hidden;
             }
 
             .title-section video {
@@ -97,21 +102,38 @@
                 text-align: center;
                 padding: 0.75rem;
                 margin-top: -2rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             .title-text {
-                font-size: 1.75rem;
+                font-size: clamp(1.5rem, 7vw, 2.5rem);
                 line-height: 1.3;
-                margin-bottom: 0.75rem;
-                letter-spacing: 0.1em;
+                margin-bottom: 0.8rem;
+                letter-spacing: 0.12em;
+                font-family: 'Playfair Display', serif;
+                font-weight: 300;
+                padding: 0 0.5rem;
+                width: 100%;
+                white-space: normal;
+                word-wrap: break-word;
+            }
+
+            .title-text span {
+                display: inline-block;
+                white-space: normal;
             }
 
             .subtitle-text {
-                font-size: 0.9rem;
-                line-height: 1.6;
+                font-size: clamp(0.7rem, 4vw, 0.9rem);
+                line-height: 1.4;
                 letter-spacing: 0.05em;
-                max-width: 280px;
+                width: 90%;
                 margin: 0 auto;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             nav {
@@ -119,21 +141,34 @@
             }
 
             nav a {
-                font-size: 0.7rem !important;
+                font-size: clamp(0.6rem, 3.5vw, 0.7rem) !important;
                 margin-right: 1.5rem !important;
                 letter-spacing: 0.2em !important;
             }
 
             .menu-button {
                 padding: 0.5rem;
-                font-size: 0.8rem;
+                font-size: clamp(0.7rem, 3.5vw, 0.8rem);
                 letter-spacing: 0.15em;
             }
 
             .menu-header {
-                font-size: 1.2rem;
+                font-size: clamp(1rem, 5vw, 1.2rem);
                 margin-bottom: 1rem;
                 letter-spacing: 0.1em;
+            }
+        }
+
+        /* Universal Mobile Optimizations */
+        @supports (-webkit-touch-callout: none) {
+            .title-section {
+                min-height: -webkit-fill-available;
+            }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .title-text {
+                font-size: clamp(1.2rem, 5vw, 2rem);
             }
         }
     </style>
