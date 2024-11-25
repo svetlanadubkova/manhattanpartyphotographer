@@ -743,35 +743,35 @@
                                     className="mb-8 px-4"
                                 >
                                     <h1 className="relative font-extralight">
-                                        <div className="text-left transform-gpu" style={{ marginLeft: '-5vw' }}>
-                                            <motion.div
-                                                className="text-[12rem] md:text-[20rem] leading-none tracking-tighter"
-                                                whileHover={{ x: 40 }}
-                                                transition={{ type: "spring", stiffness: 100, damping: 10 }}
-                                            >
-                                                <span className="relative inline-block">
-                                                    <span className="absolute -top-4 left-0 text-xs tracking-[2em] uppercase opacity-50">
-                                                        Manhattan
-                                                    </span>
-                                                    <SplitCharacters>LANA</SplitCharacters>
-                                                </span>
-                                            </motion.div>
-                                        </div>
-                                        
-                                        <div className="text-right transform-gpu" style={{ marginRight: '-5vw', marginTop: '-2rem' }}>
-                                            <motion.div
-                                                className="text-[12rem] md:text-[20rem] leading-none tracking-tighter"
-                                                whileHover={{ x: -40 }}
-                                                transition={{ type: "spring", stiffness: 100, damping: 10 }}
-                                            >
-                                                <span className="relative inline-block">
-                                                    <SplitCharacters>DUBKOVA</SplitCharacters>
-                                                    <span className="absolute -bottom-4 right-0 text-xs tracking-[2em] uppercase opacity-50">
-                                                        Photographer
-                                                    </span>
-                                                </span>
-                                            </motion.div>
-                                        </div>
+                                        <div className="text-left transform-gpu md:ml-[-5vw]">
+    <motion.div
+        className="text-6xl sm:text-8xl md:text-[12rem] lg:text-[20rem] leading-none tracking-tighter"
+        whileHover={{ x: 40 }}
+        transition={{ type: "spring", stiffness: 100, damping: 10 }}
+    >
+        <span className="relative inline-block">
+            <span className="absolute -top-2 md:-top-4 left-0 text-[0.5rem] md:text-xs tracking-[1em] md:tracking-[2em] uppercase opacity-50">
+                Manhattan
+            </span>
+            <SplitCharacters>LANA</SplitCharacters>
+        </span>
+    </motion.div>
+</div>
+
+<div className="text-right transform-gpu md:mr-[-5vw] mt-[-0.5rem] md:mt-[-2rem]">
+    <motion.div
+        className="text-6xl sm:text-8xl md:text-[12rem] lg:text-[20rem] leading-none tracking-tighter"
+        whileHover={{ x: -40 }}
+        transition={{ type: "spring", stiffness: 100, damping: 10 }}
+    >
+        <span className="relative inline-block">
+            <SplitCharacters>DUBKOVA</SplitCharacters>
+            <span className="absolute -bottom-2 md:-bottom-4 right-0 text-[0.5rem] md:text-xs tracking-[1em] md:tracking-[2em] uppercase opacity-50">
+                Photographer
+            </span>
+        </span>
+    </motion.div>
+</div>
                                     </h1>
 
                                     <motion.div 
@@ -782,34 +782,34 @@
                                     >
                                         <div className="absolute left-0 right-0 top-1/2 h-[1px] bg-white/20" />
                                         <div className="relative flex flex-col items-center justify-center gap-4">
-                                            <div className="flex items-center justify-center gap-8 mb-6">
-                                                <div className="h-[1px] w-16 bg-white/50 transform -rotate-45" />
-                                                <div className="text-xl font-light tracking-[0.5em] uppercase">
-                                                    <SplitCharacters>ELEVATED EVENT PHOTOGRAPHY IN NYC</SplitCharacters>
-                                                </div>
-                                                <div className="h-[1px] w-16 bg-white/50 transform rotate-45" />
-                                            </div>
-                                            <motion.div 
-                                                className="text-sm tracking-[0.3em] uppercase opacity-70"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                transition={{ delay: 1.4 }}
-                                            >
-                                                <div className="flex items-center justify-center gap-6">
-                                                    <span>PARTIES.</span>
-                                                   
-                                                    <span>CORPORATE EVENTS.</span>
-                                                   
-                                                    <span>NIGHT-LIFE.</span>
-                                                </div>
-                                            </motion.div>
+                                            <div className="flex items-center justify-center gap-4 md:gap-8 mb-4 md:mb-6">
+    <div className="hidden md:block h-[1px] w-16 bg-white/50 transform -rotate-45" />
+    <div className="text-sm md:text-xl font-light tracking-[0.3em] md:tracking-[0.5em] uppercase">
+        <SplitCharacters>ELEVATED EVENT PHOTOGRAPHY IN NYC</SplitCharacters>
+    </div>
+    <div className="hidden md:block h-[1px] w-16 bg-white/50 transform rotate-45" />
+</div>
+<motion.div 
+    className="text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase opacity-70"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 1.4 }}
+>
+    <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6">
+        <span>PARTIES</span>
+        <span className="hidden md:inline">·</span>
+        <span>CORPORATE EVENTS</span>
+        <span className="hidden md:inline">·</span>
+        <span>NIGHT-LIFE</span>
+    </div>
+</motion.div>
                                             <motion.div 
                                                 className="text-sm tracking-[0.2em] uppercase opacity-50 mt-4"
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
                                                 transition={{ delay: 1.6 }}
                                             >
-                                                PHOTOGRAPHY IN MANHATTAN, BROOKLYN, AND BEYOND
+                                                MANHATTAN, BROOKLYN, AND BEYOND
                                             </motion.div>
                                         </div>
                                     </motion.div>
