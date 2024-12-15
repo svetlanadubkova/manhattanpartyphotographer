@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The True Time Investment in Event Photography | Manhattan Party Photographer</title>
+    <meta name="description" content="An in-depth look at the detailed post-production process in event photography - from advanced editing to final delivery.">
+    <meta name="keywords" content="event photography workflow, post-production time, photography editing process, NYC photographer">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Recharts -->
+    <script src="https://unpkg.com/recharts/umd/Recharts.js"></script>
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            background: black;
+            color: white;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .luxury-gradient {
+            background: linear-gradient(
+                45deg,
+                rgba(255,255,255,0.05) 0%,
+                rgba(255,255,255,0) 50%,
+                rgba(255,255,255,0.05) 100%
+            );
+        }
+
+        .stat-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
+        }
+
+        .prose {
+            max-width: 75ch;
+            margin: auto;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .prose p {
+            margin-bottom: 1.8em;
+        }
+
+        .highlight-box {
+            border-left: 2px solid rgba(255,255,255,0.2);
+            padding-left: 2rem;
+            margin: 2rem 0;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-box:hover {
+            border-left-color: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .chart-container {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .chart-container:hover {
+            background: rgba(255,255,255,0.03);
+            transform: translateY(-2px);
+        }
+
+        .process-step {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0));
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="relative min-h-screen bg-black text-white overflow-hidden font-light">
+        <div class="absolute inset-0 luxury-gradient pointer-events-none"></div>
+        
+        <!-- Navigation -->
+        <nav class="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-40 bg-black/50 backdrop-blur-sm">
+            <a href="/" class="text-2xl hover:opacity-70 transition-opacity">HOME</a>
+            <a href="/gallery.html" class="text-2xl hover:opacity-70 transition-opacity">PORTFOLIO</a>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="pt-32 px-4 md:px-8 max-w-6xl mx-auto pb-16">
+            <article class="prose prose-invert prose-lg mx-auto">
+                <header class="text-center mb-16">
+                    <span class="text-lg tracking-widest uppercase opacity-70">April 8, 2024</span>
+                    <h1 class="text-4xl md:text-7xl mt-4 mb-8 font-light tracking-wide leading-tight">The True Time Investment in Event Photography</h1>
+                    <p class="text-xl md:text-2xl italic opacity-80 max-w-3xl mx-auto leading-relaxed">A data-driven exploration of the countless hours that transform raw moments into timeless memories</p>
+                </header>
+
+                <!-- Introduction -->
+                <section class="mb-16">
+                    <figure class="mb-12">
+                        <img src="/event daniel.jpeg" alt="Event Photographer NYC" class="w-full">
+                        <figcaption class="text-sm opacity-70 mt-2 text-center">Photo by Lana Dubkova | manhattanpartyphotographer.com</figcaption>
+                    </figure>
+                    
+                    <p class="text-xl leading-relaxed">In the world of event photography, there's a common misconception that our work begins and ends with the click of a shutter. The reality? Those precious hours capturing your event represent just 15-20% of the total time invested in creating your final gallery. Today, I'm pulling back the curtain to show you exactly what happens in the other 80%.</p>
+                    <div class="highlight-box">
+                        <p class="text-xl">"Think of it like an iceberg - the shooting is just the tip. Below the surface lies a vast, intricate process of selection, refinement, and artistic decision-making that transforms good photos into exceptional memories."</p>
+                    </div>
+                </section>
+
+                <!-- Time Investment Visualization -->
+                <section class="mb-16">
+                    <h2 class="text-4xl mb-8 font-light">The Complete Picture</h2>
+                    
+                    <!-- React Chart Component Will Mount Here -->
+                    <div id="time-investment-charts"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
+                        <div class="stat-card p-6 rounded-lg">
+                            <h3 class="text-4xl mb-2">1:6</h3>
+                            <p class="opacity-70">Minimum ratio of shooting time to post-production</p>
+                        </div>
+                        <div class="stat-card p-6 rounded-lg">
+                            <h3 class="text-4xl mb-2">2,000+</h3>
+                            <p class="opacity-70">Average images captured per 8-hour wedding</p>
+                        </div>
+                        <div class="stat-card p-6 rounded-lg">
+                            <h3 class="text-4xl mb-2">40-60</h3>
+                            <p class="opacity-70">Hours of post-production per major event</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- The Process -->
+                <section class="mb-16">
+                    <h2 class="text-4xl mb-8 font-light">The Art of Post-Production</h2>
+                    
+                    <p>For every hour spent capturing your event, I typically invest 6-20 hours in post-production, depending on the event type and deliverables. This meticulous process ensures that each image not only meets technical excellence but also contributes to the broader narrative of your event.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
+                        <div class="stat-card p-8 rounded-lg">
+                            <h4 class="text-2xl mb-4">Initial Processing</h4>
+                            <ul class="space-y-3 opacity-80">
+                                <li>• Backup creation & verification</li>
+                                <li>• Initial culling (2-3 hours)</li>
+                                <li>• Rating system application</li>
+                                <li>• Sequence organization</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="stat-card p-8 rounded-lg">
+                            <h4 class="text-2xl mb-4">Basic Adjustments</h4>
+                            <ul class="space-y-3 opacity-80">
+                                <li>• Color correction (4-6 hours)</li>
+                                <li>• Exposure balancing</li>
+                                <li>• Composition refinement</li>
+                                <li>• White balance optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Post-Processing -->
+                <section class="mb-16">
+                    <h2 class="text-4xl mb-8 font-light">Advanced Post-Processing</h2>
+                    
+                    <div class="process-step">
+                        <div class="timeline-marker"></div>
+                        <h3 class="text-2xl mb-4">Detailed Editing (8-10 hours)</h3>
+                        <ul class="space-y-3 opacity-80">
+                            <li>• Advanced skin retouching for key portraits</li>
+                            <li>• Environmental cleanup in significant shots</li>
+                            <li>• Lighting enhancement and mood setting</li>
+                            <li>• Special artistic treatments for showcase images</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="timeline-marker"></div>
+                        <h3 class="text-2xl mb-4">Black & White Conversion (4-6 hours)</h3>
+                        <ul class="space-y-3 opacity-80">
+                            <li>• Careful selection of images for monochrome treatment</li>
+                            <li>• Custom contrast adjustments for each image</li>
+                            <li>• Tone mapping for optimal black and white impact</li>
+                            <li>• Creation of consistent monochrome style across series</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="timeline-marker"></div>
+                        <h3 class="text-2xl mb-4">Sequence Curation (6-8 hours)</h3>
+                        <ul class="space-y-3 opacity-80">
+                            <li>• Narrative flow development</li>
+                            <li>• Emotional journey mapping</li>
+                            <li>• Color harmony consideration across sequences</li>
+                            <li>• Key moment emphasis planning</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Client Communication -->
+                <section class="mb-16">
+                    <h2 class="text-4xl mb-8 font-light">The Client Experience</h2>
+                    
+                    <div class="highlight-box">
+                        <p class="text-xl">"The difference between good and exceptional event photography often lies in the unseen hours - the meticulous attention to detail that ensures every image tells part of your story."</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
+                        <div class="stat-card p-8 rounded-lg">
+                            <h4 class="text-2xl mb-4">Communication Time Investment</h4>
+                            <ul class="space-y-3 opacity-80">
+                                <li>• Pre-event consultation (1-2 hours)</li>
+                                <li>• Progress updates (1-2 hours)</li>
+                                <li>• Gallery presentation (1 hour)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="stat-card p-8 rounded-lg">
+                            <h4 class="text-2xl mb-4">Delivery Preparation</h4>
+                            <ul class="space-y-3 opacity-80">
+                                <li>• Gallery curation (3-4 hours)</li>
+                                <li>• Image resolution optimization</li>
+                                <li>• Multi-format preparation</li>
+                                <li>• Backup creation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Event Type Comparison -->
+                <section class="mb-16">
+                    <h2 class="text-4xl mb-8 font-light">Time Investment by Event Type</h2>
+                    
+                    <div id="event-comparison-chart"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
+                        <div class="stat-card p-6 rounded-lg">
+                            <h3 class="text-2xl mb-2">Corporate Events</h3>
+                            <p class="opacity-70">1:5 shooting to post-production ratio</p>
+                        </div>
+                        <div class="stat-card p-6 rounded-lg">
+                            <h3 class="text-2xl mb-2">Weddings</h3>
+                            <p class="opacity-70">1:6 shooting to post-production ratio</p>
+                        </div>
+                        <div class="stat-card p-6 rounded-lg">
+                            <h3 class="text-2xl mb-2">Large Galas</h3>
+                            <p class="opacity-70">1:5.5 shooting to post-production ratio</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Conclusion -->
+                <section class="mb-16">
+                    <h2 class="text-4xl mb-8 font-light">The Value of Time</h2>
+                    
+                    <p class="text-xl">When you invest in professional event photography, you're not just paying for the hours I spend at your event. You're investing in:</p>
+                    
+                    <ul class="list-disc pl-6 space-y-4 my-8">
+                        <li>Years of experience and technical expertise</li>
+                        <li>Dozens of hours of meticulous post-production</li>
+                        <li>Professional-grade equipment and software</li>
+                        <li>Artistic vision and storytelling ability</li>
+                        <li>Peace of mind knowing your memories are in expert hands</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p class="text-xl">"Every hour I spend perfecting your images is an investment in preserving your memories. It's a responsibility I take seriously, and a craft I'm passionate about continually refining."</p>
+                    </div>
+                </section>
+
+                <!-- Call to Action -->
+                <section class="text-center mt-24">
+                    
+                    <a href="mailto:lana@manhattaneventphotography.com" class="inline-block px-8 py-4 border border-white/50 hover:bg-white hover:text-black transition-all duration-500 tracking-[0.3em] uppercase font-light">
+                       INQUIRE
+                    </a>
+                </section>
+            </article>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="py-12 px-8 text-center">
+            <p class="text-sm opacity-70">© 2024 Manhattan Party Photographer. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script type="text/javascript">
+        // Mount the React component
+        const root = ReactDOM.createRoot(document.getElementById('event-comparison-chart'));
+        root.render(React.createElement(TimeInvestmentCharts));
+    </script>
+</body>
+</html>
