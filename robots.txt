@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /gallery.html
+
+# Sitemaps
+Sitemap: https://manhattanpartyphotographer.com/sitemap.xml
+
+# Crawl delay to prevent server overload
+Crawl-delay: 10
