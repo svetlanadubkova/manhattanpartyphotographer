@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>couple portrait session · manhattan party photographer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&family=Commissioner:wght@200;300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+            color: #e5e5e5;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .image-section {
+            width: 60%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: black;
+        }
+
+        .form-section {
+            width: 40%;
+            margin-left: 60%;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgba(0,0,0,0.95), black);
+            position: relative;
+            z-index: 1;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.05);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input, select {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            height: 48px;
+            padding: 0;
+            width: 100%;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        input:hover, select:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-container {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-family: 'Commissioner', sans-serif;
+            font-weight: 200;
+            letter-spacing: 0.15em;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        button {
+            width: 100%;
+            background: white;
+            color: black;
+            border: none;
+            height: 48px;
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            background: #f0f0f0;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 10px rgba(255,255,255,0.1);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .lowercase {
+            text-transform: lowercase;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: 16px;
+            padding-right: 24px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.8rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .emphasis {
+            background: linear-gradient(120deg, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 500;
+        }
+
+        .note {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 0.05em;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
+            .layout {
+                flex-direction: column;
+            }
+            .image-section {
+                width: 100%;
+                height: 50vh;
+                position: relative;
+            }
+            .form-section {
+                width: 100%;
+                margin-left: 0;
+                padding: 2rem 1rem;
+            }
+            .form-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- Image Section -->
+        <div class="image-section">
+            <div class="slideshow">
+                <div class="slide" style="background-image: url('KaylaEric-22.jpg')"></div>
+                <div class="slide" style="background-image: url('KaylaEric-33.jpg')"></div>
+                <div class="slide" style="background-image: url('KaylaEric-83.jpg')"></div>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section">
+            <!-- Header -->
+            <div class="title-section">
+                <div class="uppercase" style="font-size: 11px; color: #999; margin-bottom: 8px;">
+                    BROOKLYN · NEW YORK
+                </div>
+                <h1 class="title lowercase" style="font-size: 32px; margin: 12px 0;">
+                    couple portrait session
+                </h1>
+                <div class="uppercase" style="font-size: 11px; color: #999;">
+                    FEBRUARY SEVENTH
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="form-container">
+                <form id="bookingForm">
+                    <div style="margin-bottom: 2rem;">
+                        <label class="uppercase" style="font-size: 10px; color: #999; display: block; margin-bottom: 8px;">name</label>
+                        <input type="text" name="name" required>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <label class="uppercase" style="font-size: 10px; color: #999; display: block; margin-bottom: 8px;">email</label>
+                        <input type="email" name="email" required>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <label class="uppercase" style="font-size: 10px; color: #999; display: block; margin-bottom: 8px;">time</label>
+                        <select name="time" required>
+                            <option value="">Select time</option>
+                            <option value="1:30 PM">1:30 PM</option>
+                            <option value="1:50 PM">1:50 PM</option>
+                            <option value="2:10 PM">2:10 PM</option>
+                            <option value="2:30 PM">2:30 PM</option>
+                            <option value="2:50 PM">2:50 PM</option>
+                            <option value="3:10 PM">3:10 PM</option>
+                            <option value="3:30 PM">3:30 PM</option>
+                            <option value="3:50 PM">3:50 PM</option>
+                            <option value="4:10 PM">4:10 PM</option>
+                            <option value="4:30 PM">4:30 PM</option>
+                        </select>
+                    </div>
+
+                    <div class="info-box">
+                        <p style="font-size: 13px; color: #fff; margin-bottom: 1.5rem; line-height: 1.6;">
+                            A <span class="emphasis">$25 deposit</span> is required to secure your session. Your deposit will be refunded in full <span class="emphasis">upon punctual arrival</span> to your scheduled appointment.
+                        </p>
+                        <div style="font-size: 12px; color: #fff;">
+                            <p style="margin-bottom: 0.5rem;">Venmo @svetlana-dubkova</p>
+                            <p style="margin-bottom: 0">Zelle 347-738-8058</p>
+                        </div>
+                    </div>
+
+                    <button type="submit">
+                        REQUEST SESSION
+                    </button>
+
+                    <p class="note" style="text-align: center; margin-top: 1.5rem;">
+                        Please allow up to 24 hours to receive your calendar invitation
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize slideshow with subtle zoom effect
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Show first slide and start slideshow
+        slides[0].classList.add('active');
+        setInterval(nextSlide, 4000);
+
+        // Form submission with enhanced email template
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const time = formData.get('time');
+            
+            const emailSubject = `Request to Schedule Couple Portrait Session This Friday - ${name}`;
+            const emailBody = `
+Hi Lana!
+
+I'd love to book a test couple portrait session for:
+
+Date: Friday, February 7th, 2025
+Time: ${time}
+
+Our details:
+Name: ${name}
+Email: ${email}
+
+I understand a $25 deposit is required to secure our spot. This deposit will be refunded in full upon punctual arrival to our scheduled session. I'll send it via:
+
+Venmo: @svetlana-dubkova
+or
+Zelle: 347-738-8058
+
+Looking forward to receiving the calendar invitation and meeting you!
+
+Best,
+${name}
+            `.trim();
+            
+            window.location.href = `mailto:lana@skovaphotos.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        });
+    </script>
+</body>
+</html>
