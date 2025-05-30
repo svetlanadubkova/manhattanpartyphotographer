@@ -713,7 +713,7 @@
                                     </button>
                                     <div className="relative h-full flex flex-col justify-center items-center p-8">
                                         {[
-                                            { text: 'PORTFOLIO', path: '/gallery' },
+                                            { text: 'PORTFOLIO', path: '/gallery.html' },
                                             { text: 'ABOUT', path: '#about' },
                                             { text: 'FAQ', path: '#faq-section' },
                                             { text: 'CONTACT', path: '#contact' }
@@ -766,7 +766,7 @@
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     onClick={() => {
-                                        history.pushState(null, '', '/gallery');
+                                        history.pushState(null, '', '/gallery.html');
                                         window.dispatchEvent(new PopStateEvent('popstate'));
                                     }}
                                 >
@@ -935,12 +935,12 @@
 
         const App = () => {
             const [currentPage, setCurrentPage] = useState(
-                window.location.pathname === '/gallery' ? 'portfolio' : 'home' 
+                window.location.pathname === '/gallery.html' ? 'portfolio' : 'home' 
             );
 
             useEffect(() => {
                 const handlePathChange = () => {
-                    setCurrentPage(window.location.pathname === '/gallery' ? 'portfolio' : 'home');
+                    setCurrentPage(window.location.pathname === '/gallery.html' ? 'portfolio' : 'home');
                     window.scrollTo(0,0); 
                 };
 
