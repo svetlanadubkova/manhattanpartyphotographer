@@ -357,17 +357,24 @@
         );
 
         const FlickeringGalleryBackground = () => {
-            const galleryImages = [
-       '/website stroke 2.jpg', '/6.jpg', '/event daniel.jpeg', '/SELECTS-BROOKLYNEVENTPHOTOGRAPHER-177.jpg', '/8.jpg', '/G8A1776.png', '/10.jpg', '/Rachels40th-56.jpg', '/G8A2139.jpg', '/G8A0444.jpg', '/fave13.jpg', '/SELECTS-BROOKLYNEVENTPHOTOGRAPHER-178.jpg', '/AliBDAYBASH-172.jpg', '/SELECTS-BROOKLYNEVENTPHOTOGRAPHER-308.jpg', '/AliBDAYBASH-211.jpg', '/SELECTS-BROOKLYNEVENTPHOTOGRAPHER-334.jpg', '/Rachels40th-75.jpg', '/AliBDAYBASH-214.jpg', '/G8A0498.jpg', '/SELECTS-BROOKLYNEVENTPHOTOGRAPHER-371.jpg', '/AliBDAYBASH-50.jpg', '/Rachels40th-99.jpg', '/SELECTS-BROOKLYNEVENTPHOTOGRAPHER-374.jpg', '/KaylaEric-83.jpg', '/AliBDAYBASH-68.jpg', '/G8A2499.png', '/10.jpg', '/9.jpg', '/7.jpg', '/5.jpg', '/4.jpg', '/3.jpg', '/2.jpg', '/1.jpg'
-   ];
-
+    const galleryImages = [
+        '/nyc-party-photographer-stroke2.jpg', '/newyork-event-photographer-006.jpg', '/corporate-event-photographer-nyc-daniel.jpeg', '/brooklyn-event-photographer-177.jpg', '/manhattan-nightlife-photographer-008.jpg', '/manhattan-party-photographer-1776.png',
+        '/newyork-party-photographer-010.jpg', '/nyc-celebration-photographer-056.jpg', '/newyork-event-photographer-2139.jpg', '/manhattan-event-photographer-444.jpg',
+        '/manhattan-party-photographer-fave13.jpg', '/brooklyn-party-photographer-178.jpg', '/manhattan-birthday-photographer-172.jpg', '/brooklyn-event-photographer-308.jpg',
+        '/nyc-birthday-event-photographer-211.jpg', '/brooklyn-event-photographer-334.jpg',
+        '/newyork-party-photographer-075.jpg', '/birthday-celebration-photographer-manhattan-214.jpg', '/nyc-party-photographer-498.jpg', '/brooklyn-party-photographer-371.jpg',
+        '/manhattan-professional-event-photographer-day22.jpg', '/newyork-birthday-party-photographer-050.jpg', '/nyc-party-documentation-photographer-099.jpg', '/brooklyn-event-photographer-374.jpg',
+        '/manhattan-couple-event-photographer-083.jpg', '/nyc-professional-event-photographer-day3.jpg', '/manhattan-party-celebration-photographer-068.jpg', '/corporate-event-photographer-manhattan-2499.png',
+        '/manhattan-birthday-party-photographer-017.jpg', '/manhattan-event-celebration-photographer-089.jpg', '/event-photographer-manhattan-011.jpg',
+        '/newyork-party-photographer-010.jpg', '/corporate-party-photographer-nyc-009.jpg', '/nyc-nightlife-photographer-007.jpg', '/manhattan-party-photographer-005.jpg', '/corporate-event-photographer-nyc-004.jpg', '/nyc-event-photographer-003.jpg', '/manhattan-event-photographer-002.jpg', '/nyc-party-photographer-001.jpg'
+    ];
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImageIndex(prev => (prev + 1) % galleryImages.length);
-        }, 400); // 0.4 seconds per image - really fast
+        }, 400);
 
         return () => clearInterval(interval);
     }, []);
@@ -378,7 +385,7 @@
                 className="gallery-image active"
                 style={{ 
                     backgroundImage: `url(${galleryImages[currentImageIndex]})`,
-                    transition: 'none' // Remove ALL transitions
+                    transition: 'none'
                 }}
             />
         </div>
