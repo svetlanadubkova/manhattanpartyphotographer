@@ -498,10 +498,8 @@
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     onClick={() => {
-                                        const galleryContent = document.getElementById('actual-gallery-content');
-                                        if (galleryContent) {
-                                            galleryContent.scrollIntoView({ behavior: 'smooth' });
-                                        }
+                                        history.pushState(null, '', '/gallery.html');
+                                        window.dispatchEvent(new PopStateEvent('popstate'));
                                     }}
                                 >
                                     VIEW GALLERY
