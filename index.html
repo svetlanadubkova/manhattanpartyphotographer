@@ -498,9 +498,8 @@
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     onClick={() => {
-                                        history.pushState(null, '', '/gallery.html');
-                                        window.dispatchEvent(new PopStateEvent('popstate'));
-                                    }}
+    window.location.href = '/gallery.html';
+}}
                                 >
                                     VIEW GALLERY
                                 </motion.button>
@@ -764,9 +763,8 @@
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     onClick={() => {
-                                        history.pushState(null, '', '/gallery.html');
-                                        window.dispatchEvent(new PopStateEvent('popstate'));
-                                    }}
+    window.location.href = '/gallery.html';
+}}
                                 >
                                     VIEW GALLERY
                                 </motion.button>
